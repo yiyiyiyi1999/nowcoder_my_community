@@ -15,4 +15,11 @@ public interface DiscussPostMapper {
     //查询表里一共有多少数据，用于给上面这个方法服务
     //查询用户的所有帖子+
     int selectDiscussPostRows(@Param("userId")int userId);
+    //插入帖子
+    int insertDiscussPost(DiscussPost discussPost);
+    //查询帖子的详情
+    DiscussPost selectDiscussPostById(int id);
+    //修改帖子的评论
+    int updateCommentCount(int id, int commentCount);
+
 }

@@ -4,7 +4,9 @@ import com.my.my_community.entity.DiscussPost;
 import com.my.my_community.entity.Page;
 import com.my.my_community.entity.User;
 import com.my.my_community.service.DiscussPostService;
+import com.my.my_community.service.LikeService;
 import com.my.my_community.service.UserService;
+import com.my.my_community.util.CommunityConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +19,18 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class HomeController {
+public class HomeController implements CommunityConstant {
     @Autowired
     private DiscussPostService discussPostService;
 
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LikeService likeService;
+
     @RequestMapping(value="/index",method = RequestMethod.GET)
-    public String getIndexPage(Model model, Page page){
+    public String getIndexPage(Model model, Page page) {
         //方法调用前，SpringMVC会自动实例化Model和Page，并将Page注入Model
         page.setRows(discussPostService.findDiscussPostRows(0));//总行数
         page.setPath("/index");
@@ -38,11 +43,20 @@ public class HomeController {
                 Map<String,Object> map = new HashMap<>();
                 map.put("post",post);
                 map.put("user",user);
+
+                long likeCount = likeService.findEntityLikeCount(ENTITY_TYPE_POST,post.getId());
+                map.put("likeCount",likeCount);
+
                 discussPosts.add(map);
             }
         }
         model.addAttribute("discussPosts",discussPosts);
         return "/index";
+    }
+
+    @RequestMapping(value = "/error",method = RequestMethod.GET)
+    public String getErrorPage(){
+        return "/erroe/500";
     }
 
 
