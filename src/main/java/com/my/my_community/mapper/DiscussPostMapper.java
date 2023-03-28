@@ -11,7 +11,7 @@ public interface DiscussPostMapper {
     //分页查询需要的参数：起始行的行号offset、每页显示的行数limit
     //查询某个用户的帖子（用户主页功能）/userId=0的话就是查询所有的用户
     //动态sql，根据userId是否为0展示不同的结果+分页
-    List<DiscussPost> selectDiscussPosts(int userId, int offset, int limit);
+    List<DiscussPost> selectDiscussPosts(int userId, int offset, int limit, int orderMode);
     //查询表里一共有多少数据，用于给上面这个方法服务
     //查询用户的所有帖子+
     int selectDiscussPostRows(@Param("userId")int userId);
@@ -21,5 +21,11 @@ public interface DiscussPostMapper {
     DiscussPost selectDiscussPostById(int id);
     //修改帖子的评论
     int updateCommentCount(int id, int commentCount);
+    //修改帖子类型
+    int updateType(int id, int type);
+    //修改帖子状态
+    int updateStatus(int id, int status);
+    //修改帖子分数
+    int updateScore(int id, double score);
 
 }

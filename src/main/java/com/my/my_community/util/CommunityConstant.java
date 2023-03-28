@@ -53,4 +53,20 @@ public interface CommunityConstant {
      * 发布帖子的主题
      */
    String TOPIC_PUBLISH = "publish";
+    /**
+     * 删除帖子的主题
+     */
+    String TOPIC_DELETE = "delete";
+    /**
+     * 用户身份/权限：普通用户
+     */
+    String AUTHORITY_USER = "user";
+    /**
+     * 用户身份/权限：管理员
+     */
+    String AUTHORITY_ADMIN = "admin";
+    /**
+     * 用户身份/权限：版主
+     */
+    String AUTHORITY_MODERATOR = "moderator";
 }
